@@ -26,6 +26,7 @@ import DevAddrInput from '@console/containers/dev-addr-input'
 import { NsFrequencyPlansSelect } from '@console/containers/freq-plans-select'
 
 import sharedMessages from '@ttn-lw/lib/shared-messages'
+import gid from '@ttn-lw/lib/glossary-ids'
 import PropTypes from '@ttn-lw/lib/prop-types'
 
 import {
@@ -130,7 +131,8 @@ const NetworkSettingsForm = props => {
       <NsFrequencyPlansSelect
         required
         autoFocus
-        glossaryTerm="Frequency Plan"
+        glossaryTerm={sharedMessages.frequencyPlan}
+        glossaryId={gid.frequencyPlan}
         name="frequency_plan_id"
       />
       <Form.Field
@@ -140,6 +142,8 @@ const NetworkSettingsForm = props => {
         name="lorawan_version"
         component={Select}
         options={LORAWAN_VERSIONS}
+        glossaryTerm={sharedMessages.macVersion}
+        glossaryId={gid.lorawanVersion}
       />
       <Form.Field
         required
@@ -147,13 +151,15 @@ const NetworkSettingsForm = props => {
         name="lorawan_phy_version"
         component={Select}
         options={lorawanPhyVersionOptions}
-        glossaryTerm="Regional Parameters"
+        glossaryTerm={sharedMessages.phyVersion}
+        glossaryId={gid.regionalParameters}
       />
       <Form.Field
         title={sharedMessages.supportsClassC}
         name="supports_class_c"
         component={Checkbox}
-        glossaryTerm="Class C"
+        glossaryTerm={sharedMessages.supportsClassC}
+        glossaryId={gid.classC}
       />
       {(isMulticast || isABP) && (
         <>
@@ -187,7 +193,8 @@ const NetworkSettingsForm = props => {
             }
             component={Input.Generate}
             onGenerateValue={generate16BytesKey}
-            glossaryTerm="Network Session Key"
+            glossaryTerm={lwVersion >= 110 ? sharedMessages.fNwkSIntKey : sharedMessages.nwkSKey}
+            glossaryId={gid.networkSessionKey}
           />
           {lwVersion >= 110 && (
             <Form.Field

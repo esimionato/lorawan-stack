@@ -33,6 +33,7 @@ import OwnersSelect from '@console/containers/owners-select'
 import Yup from '@ttn-lw/lib/yup'
 import PropTypes from '@ttn-lw/lib/prop-types'
 import sharedMessages from '@ttn-lw/lib/shared-messages'
+import gid from '@ttn-lw/lib/glossary-ids'
 
 import { attributeValidCheck, attributeTooShortCheck } from '@console/lib/attributes'
 import {
@@ -202,7 +203,8 @@ class GatewayDataForm extends React.Component {
           max={8}
           placeholder={sharedMessages.gatewayEUI}
           component={Input}
-          glossaryTerm="GatewayEUI"
+          glossaryTerm={sharedMessages.gatewayEUI}
+          glossaryId={gid.gatewayEUI}
         />
         <Form.Field
           title={sharedMessages.gatewayName}
@@ -245,7 +247,8 @@ class GatewayDataForm extends React.Component {
         <GsFrequencyPlansSelect
           name="frequency_plan_id"
           menuPlacement="top"
-          glossaryTerm="Frequency plan"
+          glossaryTerm={sharedMessages.frequencyPlan}
+          glossaryId={gid.frequencyPlan}
         />
         <Form.Field
           title={sharedMessages.gatewayScheduleDownlinkLate}

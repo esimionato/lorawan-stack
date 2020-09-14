@@ -16,6 +16,7 @@ import React from 'react'
 import bind from 'autobind-decorator'
 import classnames from 'classnames'
 import { getIn } from 'formik'
+import { defineMessages } from 'react-intl'
 
 import Icon from '@ttn-lw/components/icon'
 import Link from '@ttn-lw/components/link'
@@ -29,7 +30,9 @@ import FormContext from '../context'
 
 import style from './field.styl'
 
-import sharedMessages from '@ttn-lw/lib/shared-messages'
+const m = defineMessages({
+  glossaryLinkTitle: 'Click here for an explanation of this field',
+})
 
 export function getPassThroughProps(props, excludeProps) {
   const rest = {}
@@ -71,9 +74,10 @@ class FormField extends React.Component {
     ]).isRequired,
     decode: PropTypes.func,
     description: PropTypes.message,
-    glossaryTerm: PropTypes.string,
     disabled: PropTypes.bool,
     encode: PropTypes.func,
+    glossaryId: PropTypes.string,
+    glossaryTerm: PropTypes.message,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     readOnly: PropTypes.bool,
@@ -91,6 +95,7 @@ class FormField extends React.Component {
     warning: '',
     description: '',
     glossaryTerm: '',
+    glossaryId: '',
     readOnly: false,
     required: false,
   }
@@ -167,6 +172,7 @@ class FormField extends React.Component {
       required,
       readOnly,
       glossaryTerm,
+      glossaryId,
       component: Component,
     } = this.props
     const { horizontal, disabled: formDisabled } = this.context
@@ -179,7 +185,7 @@ class FormField extends React.Component {
     const hasError = Boolean(fieldError)
     const hasWarning = Boolean(warning)
     const hasDescription = Boolean(description)
-    const hasGlossaryTerm = Boolean(glossaryTerm)
+    const hasGlossaryTerm = Boolean(glossaryTerm) && Boolean(glossaryId)
 
     const showError = fieldTouched && hasError
     const showWarning = !hasError && hasWarning
@@ -235,11 +241,12 @@ class FormField extends React.Component {
           <Message content={title} className={style.title} />
           {hasGlossaryTerm && (
             <Link.GlossaryLink
-              title={sharedMessages.glossaryLinkTitle}
+              title={m.glossaryLinkTitle}
               hideTerm
               beforeIcon=""
               afterIcon="help"
               term={glossaryTerm}
+              glossaryId={glossaryId}
             />
           )}
         </label>

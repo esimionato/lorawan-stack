@@ -23,6 +23,7 @@ import { withBreadcrumb } from '@ttn-lw/components/breadcrumbs/context'
 
 import PropTypes from '@ttn-lw/lib/prop-types'
 import sharedMessages from '@ttn-lw/lib/shared-messages'
+import gid from '@ttn-lw/lib/glossary-ids'
 
 import { parseLorawanMacVersion, generate16BytesKey } from '@console/lib/device-utils'
 
@@ -89,7 +90,8 @@ const JoinSettingsForm = React.memo(props => {
             disabled={!mayEditKeys}
             mayGenerateValue={mayEditKeys}
             onGenerateValue={generate16BytesKey}
-            glossaryTerm="AppKey"
+            glossaryId={gid.appKey}
+            glossaryTerm={sharedMessages.appKey}
           />
           {lwVersion >= 110 && (
             <Form.Field

@@ -20,7 +20,6 @@ import { injectIntl } from 'react-intl'
 import Icon from '@ttn-lw/components/icon'
 
 import { withEnv } from '@ttn-lw/lib/components/env'
-import stringToSlug from '@ttn-lw/lib/string-to-slug'
 
 import PropTypes from '@ttn-lw/lib/prop-types'
 import { url as urlPattern } from '@ttn-lw/lib/regexp'
@@ -175,12 +174,12 @@ const DocLink = function(props) {
 
 DocLink.propTypes = {
   ...Link.propTypes,
+  afterIcon: PropTypes.string,
+  beforeIcon: PropTypes.string,
   env: PropTypes.env.isRequired,
   name: PropTypes.string,
   path: PropTypes.string.isRequired,
   showVisited: PropTypes.bool,
-  beforeIcon: PropTypes.string,
-  afterIcon: PropTypes.string,
   to: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.shape({
@@ -202,25 +201,25 @@ DocLink.defaultProps = {
   afterIcon: 'launch',
 }
 
-const GlossaryLink = function({ term, hideTerm, ...rest }) {
-  const urlTerm = stringToSlug(term)
+const GlossaryLink = ({ glossaryId, term, hideTerm, ...rest }) => {
   return (
-    <Link.DocLink path={'/reference/glossary#' + urlTerm} {...rest}>
+    <Link.DocLink path={`/reference/glossary#${glossaryId}`} {...rest}>
       {!hideTerm && term}
     </Link.DocLink>
   )
 }
 
 GlossaryLink.propTypes = {
-  term: PropTypes.string.isRequired,
+  glossaryId: PropTypes.message.isRequired,
   hideTerm: PropTypes.bool,
+  term: PropTypes.string.isRequired,
 }
 
 GlossaryLink.defaultProps = {
   hideTerm: false,
 }
 
-Link.GlossaryLink = injectIntl(GlossaryLink)
+Link.GlossaryLink = GlossaryLink
 
 const AnchorLink = function(props) {
   const {

@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import React from 'react'
-import { defineMessages } from 'react-intl'
 
 import Input from '@ttn-lw/components/input'
 import Wizard from '@ttn-lw/components/wizard'
@@ -25,6 +24,7 @@ import JoinEUIPrefixesInput from '@console/containers/join-eui-prefixes-input'
 
 import PropTypes from '@ttn-lw/lib/prop-types'
 import sharedMessages from '@ttn-lw/lib/shared-messages'
+import gid from '@ttn-lw/lib/glossary-ids'
 
 import { ACTIVATION_MODES, parseLorawanMacVersion } from '@console/lib/device-utils'
 
@@ -83,7 +83,8 @@ const BasicSettingsForm = props => {
               }
               required
               showPrefixes
-              glossaryTerm={lwVersion < 104 ? 'AppEUI' : 'JoinEUI'}
+              glossaryTerm={lwVersion < 104 ? sharedMessages.appEUI : sharedMessages.joinEUI}
+              glossaryId={lwVersion < 104 ? gid.appEUI : gid.joinEUI}
             />
           )}
           <Form.Field
@@ -95,7 +96,8 @@ const BasicSettingsForm = props => {
             description={sharedMessages.deviceEUIDescription}
             required={isOTAA || lwVersion === 104}
             component={Input}
-            glossaryTerm="DevEUI"
+            glossaryId={gid.devEUI}
+            glossaryTerm={sharedMessages.devEUI}
           />
         </>
       )}

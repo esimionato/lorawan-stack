@@ -23,12 +23,12 @@ import Select from '@ttn-lw/components/select'
 import Radio from '@ttn-lw/components/radio-button'
 import Form from '@ttn-lw/components/form'
 import Checkbox from '@ttn-lw/components/checkbox'
-import Link from '@ttn-lw/components/link'
 
 import Message from '@ttn-lw/lib/components/message'
 
 import PropTypes from '@ttn-lw/lib/prop-types'
 import sharedMessages from '@ttn-lw/lib/shared-messages'
+import gid from '@ttn-lw/lib/glossary-ids'
 
 import { ACTIVATION_MODES, LORAWAN_VERSIONS } from '@console/lib/device-utils'
 
@@ -186,7 +186,8 @@ const ConfigurationForm = React.memo(props => {
         required={nsConfig.enabled || jsConfig.enabled}
         warning={activationModeWarning}
         onChange={handleActivationModeChange}
-        glossaryTerm="Activation mode"
+        glossaryTerm={sharedMessages.activationMode}
+        glossaryId={gid.activationMode}
       >
         <Radio
           label={sharedMessages.otaa}
@@ -214,7 +215,8 @@ const ConfigurationForm = React.memo(props => {
             autoFocus={!canCreateJs && !canCreateNs}
             title={sharedMessages.macVersion}
             description={sharedMessages.macVersionDescription}
-            glossaryTerm="LoRaWAN version"
+            glossaryTerm={sharedMessages.macVersion}
+            glossaryId={gid.lorawanVersion}
             name="lorawan_version"
             component={Select}
             options={LORAWAN_VERSIONS}
@@ -240,7 +242,8 @@ const ConfigurationForm = React.memo(props => {
           {showExternalJs && (
             <Form.Field
               title={sharedMessages.externalJoinServer}
-              glossaryTerm="Join server"
+              glossaryTerm={sharedMessages.componentJs}
+              glossaryId={gid.joinServer}
               name="_external_js"
               onChange={handleExternalJsChange}
               component={Checkbox}
